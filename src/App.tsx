@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useLocalStorage } from './hooks/useLocalStorage';
+import { useDarkMode } from './hooks/useDarkMode';
 import { HomePriceInput } from './components/HomePriceInput';
 import { MortgageTermsInput } from './components/MortgageTermsInput';
 import { SalariesInput } from './components/SalariesInput';
@@ -28,6 +29,9 @@ const initialData: MortgageData = {
 };
 
 function App() {
+  // Initialize dark mode hook - single source of truth
+  const { toggleDarkMode, isDarkMode } = useDarkMode();
+  
   const [mortgageData, setMortgageData] = useLocalStorage<MortgageData>(
     'mortgage-planning-data',
     initialData
@@ -307,8 +311,8 @@ function App() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50">
-        <Header onClear={handleClear} />
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <Header onClear={handleClear} onToggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       <div className="container mx-auto px-4 pb-8">
         <HomePriceInput
           value={mortgageData.homePrice}

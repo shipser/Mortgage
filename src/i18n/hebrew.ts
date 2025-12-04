@@ -1,5 +1,5 @@
 export const hebrew = {
-  appTitle: 'כלי לתכנון מימון קניית בית',
+  appTitle: 'כלי תכנון מימוני לקניית בית',
   
   // Home Price
   homePrice: 'מחיר הבית',

@@ -85,7 +85,7 @@ export function LoansList({ loans, onChange }: LoansListProps) {
       </div>
 
       {editingIndex !== null && editForm && (
-        <div className="bg-gray-50 p-4 rounded-lg mb-4 border-2 border-blue-200">
+        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4 border-2 border-blue-200 dark:border-blue-700">
           <h3 className="font-semibold mb-3">
             {editingIndex >= loans.length ? hebrew.addLoan : hebrew.edit}
           </h3>
@@ -167,11 +167,11 @@ export function LoansList({ loans, onChange }: LoansListProps) {
         {loans.map((loan, index) => (
           <div
             key={index}
-            className="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center"
+            className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 flex justify-between items-center"
           >
             <div className="flex-1">
               <div className="font-semibold">{loan.name || `הלוואה ${index + 1}`}</div>
-              <div className="text-sm text-gray-600 mt-1">
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 {hebrew.loanAmount}: {loan.loanAmount.toLocaleString('he-IL')} ₪ |{' '}
                 {hebrew.durationMonths}: {loan.durationMonths} |{' '}
                 {hebrew.monthlyPayment}: {loan.monthlyPayment.toLocaleString('he-IL')} ₪ |{' '}
@@ -189,28 +189,28 @@ export function LoansList({ loans, onChange }: LoansListProps) {
           </div>
         ))}
         {loans.length === 0 && (
-          <p className="text-gray-500 text-center py-4">אין הלוואות. לחץ על "הוסף הלוואה" כדי להתחיל.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-center py-4">אין הלוואות. לחץ על "הוסף הלוואה" כדי להתחיל.</p>
         )}
       </div>
 
       {totals.hasLoans && (
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
+        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border-2 border-blue-300 dark:border-blue-600">
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm font-semibold text-blue-900">{hebrew.totalLoanAmount}:</span>
-              <span className="text-sm font-semibold text-blue-900">
+              <span className="text-sm font-semibold text-blue-900 dark:text-blue-200">{hebrew.totalLoanAmount}:</span>
+              <span className="text-sm font-semibold text-blue-900 dark:text-blue-200">
                 {totals.totalLoanAmount.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm font-semibold text-blue-900">{hebrew.totalMonthlyPayments}:</span>
-              <span className="text-sm font-semibold text-blue-900">
+              <span className="text-sm font-semibold text-blue-900 dark:text-blue-200">{hebrew.totalMonthlyPayments}:</span>
+              <span className="text-sm font-semibold text-blue-900 dark:text-blue-200">
                 {totals.totalMonthlyPayments.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm font-bold text-blue-900">{hebrew.totalLongTermPayments}:</span>
-              <span className="text-sm font-bold text-blue-900">
+              <span className="text-sm font-bold text-blue-900 dark:text-blue-200">{hebrew.totalLongTermPayments}:</span>
+              <span className="text-sm font-bold text-blue-900 dark:text-blue-200">
                 {totals.totalLongTermPayments.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
               </span>
             </div>

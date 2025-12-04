@@ -260,12 +260,12 @@ export function SummarySection({
 
       {/* Recommended Mortgage */}
       {recommendedMortgage > 0 && (
-        <div className="mb-6 p-4 bg-green-50 rounded-lg border-2 border-green-300">
-          <h3 className="text-lg font-semibold mb-3 text-green-900">{hebrew.recommendedMortgage}</h3>
-          <div className="text-2xl font-bold text-green-900 mb-2">
+        <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/30 rounded-lg border-2 border-green-300 dark:border-green-600">
+          <h3 className="text-lg font-semibold mb-3 text-green-900 dark:text-green-200">{hebrew.recommendedMortgage}</h3>
+          <div className="text-2xl font-bold text-green-900 dark:text-green-200 mb-2">
             {recommendedMortgage.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
           </div>
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-gray-600 dark:text-gray-400">
             {hebrew.mortgageDuration}: {mortgageDurationYears} {hebrew.years} | {hebrew.averageYearlyRate}: {averageYearlyRate}%
           </div>
         </div>
@@ -273,26 +273,26 @@ export function SummarySection({
 
       {/* Monthly Payment and Comparison */}
       {recommendedMortgage > 0 && (
-        <div className="mb-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
-          <h3 className="text-lg font-semibold mb-3 text-blue-900">{hebrew.monthlyMortgagePayment}</h3>
+        <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border-2 border-blue-300 dark:border-blue-600">
+          <h3 className="text-lg font-semibold mb-3 text-blue-900 dark:text-blue-200">{hebrew.monthlyMortgagePayment}</h3>
           <div className="space-y-2 text-sm mb-3">
             <div className="flex justify-between">
-              <span className="text-gray-700">{hebrew.recommendedMortgage}:</span>
+              <span className="text-gray-700 dark:text-gray-300">{hebrew.recommendedMortgage}:</span>
               <span className="font-semibold">{monthlyPayment.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
             </div>
             {maxMortgageFromHomePrice > 0 && recommendedMortgage !== maxMortgageFromHomePrice && (
               <>
                 <div className="flex justify-between">
-                  <span className="text-gray-700">{hebrew.maxMortgageFromHomePrice}:</span>
+                  <span className="text-gray-700 dark:text-gray-300">{hebrew.maxMortgageFromHomePrice}:</span>
                   <span className="font-semibold text-blue-600">
                     {monthlyPaymentForMaxMortgage.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
                   </span>
                 </div>
-                <div className={`text-sm font-semibold pt-2 border-t ${monthlyPaymentForMaxMortgage > monthlyPayment ? 'text-red-900 border-red-200' : 'text-green-900 border-green-200'}`}>
+                <div className={`text-sm font-semibold pt-2 border-t ${monthlyPaymentForMaxMortgage > monthlyPayment ? 'text-red-900 dark:text-red-200 border-red-200 dark:border-red-700' : 'text-green-900 dark:text-green-200 border-green-200 dark:border-green-700'}`}>
                   {monthlyPaymentForMaxMortgage > monthlyPayment ? (
                     <>
                       {hebrew.paymentDifference}: {(monthlyPaymentForMaxMortgage - monthlyPayment).toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
-                      <span className="text-xs text-gray-600 mr-2">
+                      <span className="text-xs text-gray-600 dark:text-gray-400 mr-2">
                         ({hebrew.additionalSalaryNeeded}: {((monthlyPaymentForMaxMortgage - monthlyPayment) * 3).toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪)
                       </span>
                     </>
@@ -307,81 +307,81 @@ export function SummarySection({
             {monthlyReturnPower > 0 && (
               <>
                 {(maxMortgageFromHomePrice > 0 && recommendedMortgage !== maxMortgageFromHomePrice) && (
-                  <div className="pt-2 border-t border-blue-200 mt-2"></div>
+                  <div className="pt-2 border-t border-blue-200 dark:border-blue-700 mt-2"></div>
                 )}
                 <div className="flex justify-between">
-                  <span className="text-gray-700">{hebrew.monthlyReturnPower}:</span>
+                  <span className="text-gray-700 dark:text-gray-300">{hebrew.monthlyReturnPower}:</span>
                   <span className="font-semibold text-blue-600">
                     {monthlyReturnPower.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
                   </span>
                 </div>
                 {monthlyReturnPower < monthlyPayment && (
-                  <div className="text-sm font-semibold pt-2 border-t text-red-900 border-red-200">
+                  <div className="text-sm font-semibold pt-2 border-t text-red-900 dark:text-red-200 border-red-200 dark:border-red-700">
                     {hebrew.paymentDifference}: {(monthlyPayment - monthlyReturnPower).toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
-                    <span className="text-xs text-gray-600 mr-2">
+                    <span className="text-xs text-gray-600 dark:text-gray-400 mr-2">
                       ({hebrew.additionalSalaryNeeded}: {((monthlyPayment - monthlyReturnPower) * 3).toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪)
                     </span>
                   </div>
                 )}
                 {monthlyReturnPower > monthlyPayment && (
-                  <div className="text-sm font-semibold pt-2 border-t text-green-900 border-green-200">
+                  <div className="text-sm font-semibold pt-2 border-t text-green-900 dark:text-green-200 border-green-200 dark:border-green-700">
                     {hebrew.excessPaymentPower}: {(monthlyReturnPower - monthlyPayment).toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
                   </div>
                 )}
               </>
             )}
           </div>
-          <div className="text-2xl font-bold text-blue-900 pt-2 border-t border-blue-200">
+          <div className="text-2xl font-bold text-blue-900 dark:text-blue-200 pt-2 border-t border-blue-200 dark:border-blue-700">
             {monthlyPayment.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
           </div>
         </div>
       )}
 
       {/* Total Available Funds */}
-      <div className="mb-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
-        <h3 className="text-lg font-semibold mb-3 text-blue-900">{hebrew.totalAvailableFunds}</h3>
+      <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border-2 border-blue-300 dark:border-blue-600">
+        <h3 className="text-lg font-semibold mb-3 text-blue-900 dark:text-blue-200">{hebrew.totalAvailableFunds}</h3>
         <div className="space-y-2 text-sm mb-3">
           <div className="flex justify-between">
-            <span className="text-gray-700">{hebrew.netSavings}:</span>
+            <span className="text-gray-700 dark:text-gray-300">{hebrew.netSavings}:</span>
             <span className="font-semibold">{calculateNetSavings().toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-700">{hebrew.availableLoansAmount}:</span>
+            <span className="text-gray-700 dark:text-gray-300">{hebrew.availableLoansAmount}:</span>
             <span className="font-semibold">{calculateAvailableLoansAmount().toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-700">{hebrew.totalExpenses}:</span>
+            <span className="text-gray-700 dark:text-gray-300">{hebrew.totalExpenses}:</span>
             <span className="font-semibold text-red-600">-{totalExpenses.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-700">{hebrew.totalTax}:</span>
+            <span className="text-gray-700 dark:text-gray-300">{hebrew.totalTax}:</span>
             <span className="font-semibold text-red-600">-{buyingTax.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
           </div>
         </div>
-        <div className="text-2xl font-bold text-blue-900 pt-2 border-t border-blue-200">
+        <div className="text-2xl font-bold text-blue-900 dark:text-blue-200 pt-2 border-t border-blue-200 dark:border-blue-700">
           {totalAvailableFunds.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
         </div>
       </div>
 
       {/* Missing Money */}
       {homePrice > 0 && (
-        <div className={`mb-6 p-4 rounded-lg border-2 ${missingMoney > 0 ? 'bg-red-50 border-red-300' : 'bg-green-50 border-green-300'}`}>
+        <div className={`mb-6 p-4 rounded-lg border-2 ${missingMoney > 0 ? 'bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600' : 'bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-600'}`}>
           <h3 className="text-lg font-semibold mb-3">{hebrew.missingMoney}</h3>
           <div className="space-y-2 text-sm mb-3">
             <div className="flex justify-between">
-              <span className="text-gray-700">{hebrew.homePrice}:</span>
+              <span className="text-gray-700 dark:text-gray-300">{hebrew.homePrice}:</span>
               <span className="font-semibold">{homePrice.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-700">{hebrew.recommendedMortgage}:</span>
+              <span className="text-gray-700 dark:text-gray-300">{hebrew.recommendedMortgage}:</span>
               <span className="font-semibold text-red-600">-{recommendedMortgage.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-700">{hebrew.totalAvailableFunds}:</span>
+              <span className="text-gray-700 dark:text-gray-300">{hebrew.totalAvailableFunds}:</span>
               <span className="font-semibold text-red-600">-{totalAvailableFunds.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
             </div>
           </div>
-          <div className={`text-2xl font-bold pt-2 border-t ${missingMoney > 0 ? 'text-red-900 border-red-200' : 'text-green-900 border-green-200'}`}>
+          <div className={`text-2xl font-bold pt-2 border-t ${missingMoney > 0 ? 'text-red-900 dark:text-red-200 border-red-200 dark:border-red-700' : 'text-green-900 dark:text-green-200 border-green-200 dark:border-green-700'}`}>
             {missingMoney > 0 ? (
               <>
                 {hebrew.missing}: {missingMoney.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
@@ -397,27 +397,27 @@ export function SummarySection({
 
       {/* Buying Power Indicator */}
       {homePrice > 0 && (
-        <div className={`mb-6 p-4 rounded-lg border-2 ${hasEnoughBuyingPower ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'}`}>
+        <div className={`mb-6 p-4 rounded-lg border-2 ${hasEnoughBuyingPower ? 'bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-600' : 'bg-red-50 dark:bg-red-900/30 border-red-300 dark:border-red-600'}`}>
           <h3 className="text-lg font-semibold mb-3">{hebrew.buyingPower}</h3>
           <div className="space-y-2 text-sm mb-3">
             <div className="flex justify-between">
-              <span className="text-gray-700">{hebrew.homePrice}:</span>
+              <span className="text-gray-700 dark:text-gray-300">{hebrew.homePrice}:</span>
               <span className="font-semibold">{homePrice.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-700">{hebrew.recommendedMortgage}:</span>
+              <span className="text-gray-700 dark:text-gray-300">{hebrew.recommendedMortgage}:</span>
               <span className="font-semibold">{recommendedMortgage.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-700">{hebrew.totalAvailableFunds}:</span>
+              <span className="text-gray-700 dark:text-gray-300">{hebrew.totalAvailableFunds}:</span>
               <span className="font-semibold">{totalAvailableFunds.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
             </div>
-            <div className="flex justify-between pt-2 border-t border-gray-200">
-              <span className="text-gray-700 font-semibold">{hebrew.totalBuyingPower}:</span>
+            <div className="flex justify-between pt-2 border-t border-gray-200 dark:border-gray-700">
+              <span className="text-gray-700 dark:text-gray-300 font-semibold">{hebrew.totalBuyingPower}:</span>
               <span className="font-bold">{totalBuyingPower.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
             </div>
           </div>
-          <div className={`text-2xl font-bold pt-2 border-t flex items-center gap-2 ${hasEnoughBuyingPower ? 'text-green-900 border-green-200' : 'text-red-900 border-red-200'}`}>
+          <div className={`text-2xl font-bold pt-2 border-t flex items-center gap-2 ${hasEnoughBuyingPower ? 'text-green-900 dark:text-green-200 border-green-200 dark:border-green-700' : 'text-red-900 dark:text-red-200 border-red-200 dark:border-red-700'}`}>
             <span className="text-3xl">{hasEnoughBuyingPower ? '✓' : '✗'}</span>
             <span>{hasEnoughBuyingPower ? hebrew.enoughBuyingPower : hebrew.notEnoughBuyingPower}</span>
           </div>

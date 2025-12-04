@@ -150,7 +150,7 @@ export function MortgageSection({
       <h2 className="section-title">{hebrew.mortgageSection}</h2>
 
       {/* Return Power Section */}
-      <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+      <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
         <h3 className="text-lg font-semibold mb-3">{hebrew.returnPower}</h3>
         <div className="mb-3">
           <label className="label">{hebrew.returnPowerPercentage}</label>
@@ -165,65 +165,65 @@ export function MortgageSection({
         </div>
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-600">{hebrew.totalAverageIncome}:</span>
+            <span className="text-gray-600 dark:text-gray-400">{hebrew.totalAverageIncome}:</span>
             <span className="font-semibold">{totalAverageIncome.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-600">{hebrew.longTermLoanPayments}:</span>
+            <span className="text-gray-600 dark:text-gray-400">{hebrew.longTermLoanPayments}:</span>
             <span className="font-semibold text-red-600">-{longTermPayments.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
           </div>
-          <div className="flex justify-between pt-2 border-t border-gray-300">
-            <span className="font-bold text-blue-900">{hebrew.returnPower}:</span>
-            <span className="font-bold text-blue-900 text-lg">{returnPower.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
+          <div className="flex justify-between pt-2 border-t border-gray-300 dark:border-gray-600">
+            <span className="font-bold text-blue-900 dark:text-blue-200">{hebrew.returnPower}:</span>
+            <span className="font-bold text-blue-900 dark:text-blue-200 text-lg">{returnPower.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
           </div>
         </div>
       </div>
 
       {/* Max Mortgage from Return Power */}
-      <div className="mb-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
-        <h3 className="text-lg font-semibold mb-3 text-blue-900">{hebrew.maxMortgageFromReturnPower}</h3>
-        <div className="text-2xl font-bold text-blue-900">
+      <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border-2 border-blue-300 dark:border-blue-600">
+        <h3 className="text-lg font-semibold mb-3 text-blue-900 dark:text-blue-200">{hebrew.maxMortgageFromReturnPower}</h3>
+        <div className="text-2xl font-bold text-blue-900 dark:text-blue-200">
           {maxMortgageFromReturnPower.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
         </div>
       </div>
 
       {/* Max Mortgage from Savings and Loans */}
-      <div className="mb-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
-        <h3 className="text-lg font-semibold mb-3 text-blue-900">{hebrew.maxMortgageFromSavingsAndLoans}</h3>
+      <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border-2 border-blue-300 dark:border-blue-600">
+        <h3 className="text-lg font-semibold mb-3 text-blue-900 dark:text-blue-200">{hebrew.maxMortgageFromSavingsAndLoans}</h3>
         <div className="space-y-2 text-sm mb-3">
           <div className="flex justify-between">
-            <span className="text-gray-700">{hebrew.netSavings}:</span>
+            <span className="text-gray-700 dark:text-gray-300">{hebrew.netSavings}:</span>
             <span className="font-semibold">{calculateNetSavings().toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-700">{hebrew.availableLoansAmount}:</span>
+            <span className="text-gray-700 dark:text-gray-300">{hebrew.availableLoansAmount}:</span>
             <span className="font-semibold">{calculateAvailableLoansAmount().toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</span>
           </div>
         </div>
-        <div className="text-2xl font-bold text-blue-900 pt-2 border-t border-blue-200">
+        <div className="text-2xl font-bold text-blue-900 dark:text-blue-200 pt-2 border-t border-blue-200 dark:border-blue-700">
           {maxMortgageFromSavingsAndLoans.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
         </div>
       </div>
 
       {/* Max Mortgage from Home Price */}
-      <div className="mb-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
-        <h3 className="text-lg font-semibold mb-3 text-blue-900">{hebrew.maxMortgageFromHomePrice}</h3>
-        <div className="text-sm mb-3 text-gray-700">
+      <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border-2 border-blue-300 dark:border-blue-600">
+        <h3 className="text-lg font-semibold mb-3 text-blue-900 dark:text-blue-200">{hebrew.maxMortgageFromHomePrice}</h3>
+        <div className="text-sm mb-3 text-gray-700 dark:text-gray-300">
           {buyingTaxConfig.isFirstHome ? hebrew.isFirstHome : hebrew.anotherHome} ({buyingTaxConfig.isFirstHome ? '75%' : '50%'} {hebrew.ofHomePrice})
         </div>
-        <div className="text-2xl font-bold text-blue-900">
+        <div className="text-2xl font-bold text-blue-900 dark:text-blue-200">
           {maxMortgageFromHomePrice.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
         </div>
       </div>
 
       {/* Recommended Mortgage (Minimum of the three) */}
       {recommendedMortgage > 0 && (
-        <div className="mb-6 p-6 bg-green-50 rounded-lg border-4 border-green-400">
-          <h3 className="text-xl font-bold mb-3 text-green-900">{hebrew.recommendedMortgage}</h3>
-          <div className="text-sm mb-3 text-gray-700">
+        <div className="mb-6 p-6 bg-green-50 dark:bg-green-900/30 rounded-lg border-4 border-green-400 dark:border-green-600">
+          <h3 className="text-xl font-bold mb-3 text-green-900 dark:text-green-200">{hebrew.recommendedMortgage}</h3>
+          <div className="text-sm mb-3 text-gray-700 dark:text-gray-300">
             {hebrew.recommendedMortgage} ({hebrew.minimumOfThree})
           </div>
-          <div className="text-3xl font-bold text-green-900">
+          <div className="text-3xl font-bold text-green-900 dark:text-green-200">
             {recommendedMortgage.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
           </div>
         </div>

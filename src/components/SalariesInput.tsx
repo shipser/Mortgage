@@ -55,7 +55,7 @@ export function SalariesInput({
         {/* Spouse 1 */}
         <div>
           <h3 className="text-lg font-semibold mb-3">{hebrew.spouse1}</h3>
-          <p className="text-sm text-gray-600 mb-3">{hebrew.lastThreeSalaries}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{hebrew.lastThreeSalaries}</p>
           {[0, 1, 2].map((index) => (
             <div key={index} className="mb-3">
               <label className="label">
@@ -83,7 +83,7 @@ export function SalariesInput({
         {/* Spouse 2 */}
         <div>
           <h3 className="text-lg font-semibold mb-3">{hebrew.spouse2}</h3>
-          <p className="text-sm text-gray-600 mb-3">{hebrew.lastThreeSalaries}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">{hebrew.lastThreeSalaries}</p>
           {[0, 1, 2].map((index) => (
             <div key={index} className="mb-3">
               <label className="label">
@@ -109,10 +109,10 @@ export function SalariesInput({
         </div>
       </div>
       {totalAverage > 0 && (
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
+        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border-2 border-blue-300 dark:border-blue-600">
           <div className="flex justify-between items-center">
-            <span className="text-lg font-bold text-blue-900">{hebrew.totalAverageSalaries}:</span>
-            <span className="text-xl font-bold text-blue-900">
+            <span className="text-lg font-bold text-blue-900 dark:text-blue-200">{hebrew.totalAverageSalaries}:</span>
+            <span className="text-xl font-bold text-blue-900 dark:text-blue-200">
               {totalAverage.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
             </span>
           </div>

@@ -95,7 +95,7 @@ export function SavingsList({ savings, onChange }: SavingsListProps) {
       </div>
 
       {editingIndex !== null && editForm && (
-        <div className="bg-gray-50 p-4 rounded-lg mb-4 border-2 border-blue-200">
+        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4 border-2 border-blue-200 dark:border-blue-700">
           <h3 className="font-semibold mb-3">
             {editingIndex >= savings.length ? hebrew.addSaving : hebrew.edit}
           </h3>
@@ -201,11 +201,11 @@ export function SavingsList({ savings, onChange }: SavingsListProps) {
         {savings.map((saving, index) => (
           <div
             key={index}
-            className="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center"
+            className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 flex justify-between items-center"
           >
             <div className="flex-1">
               <div className="font-semibold">{saving.name || `חסכון ${index + 1}`}</div>
-              <div className="text-sm text-gray-600 mt-1">
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 {hebrew.totalAmount}: {saving.totalAmount.toLocaleString('he-IL')} ₪ |{' '}
                 {hebrew.totalRevenue}: {saving.totalRevenue.toLocaleString('he-IL')} ₪ |{' '}
                 {hebrew.state}: {saving.state === 'open' ? hebrew.open : hebrew.closed} |{' '}
@@ -231,30 +231,30 @@ export function SavingsList({ savings, onChange }: SavingsListProps) {
           </div>
         ))}
         {savings.length === 0 && (
-          <p className="text-gray-500 text-center py-4">אין חסכונות. לחץ על "הוסף חסכון" כדי להתחיל.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-center py-4">אין חסכונות. לחץ על "הוסף חסכון" כדי להתחיל.</p>
         )}
       </div>
 
       {totals.hasOpenSavings && (
         <div className="mt-6 space-y-3">
-          <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+          <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-semibold text-gray-700">{hebrew.totalOpenSavings}:</span>
-              <span className="text-sm font-semibold text-gray-700">
+              <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{hebrew.totalOpenSavings}:</span>
+              <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">
                 {totals.totalOpenAmount.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
               </span>
             </div>
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm font-semibold text-gray-700">{hebrew.totalSavingsTax}:</span>
-              <span className="text-sm font-semibold text-red-600">
+              <span className="text-sm font-semibold text-gray-700 dark:text-gray-300">{hebrew.totalSavingsTax}:</span>
+              <span className="text-sm font-semibold text-red-600 dark:text-red-400">
                 -{totals.totalTax.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
               </span>
             </div>
           </div>
-          <div className="p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
+          <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border-2 border-blue-300 dark:border-blue-600">
             <div className="flex justify-between items-center">
-              <span className="text-lg font-bold text-blue-900">{hebrew.netSavings}:</span>
-              <span className="text-xl font-bold text-blue-900">
+              <span className="text-lg font-bold text-blue-900 dark:text-blue-200">{hebrew.netSavings}:</span>
+              <span className="text-xl font-bold text-blue-900 dark:text-blue-200">
                 {totals.netAmount.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
               </span>
             </div>
