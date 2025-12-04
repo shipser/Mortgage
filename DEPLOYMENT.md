@@ -1,6 +1,12 @@
 # הוראות התקנה והפעלה בשרת ייצור
 # Production Deployment Instructions
 
+## כלי לתכנון מימון קניית בית
+## Mortgage Planning Tool
+
+כלי מקצועי לתכנון מימון קניית בית עם חישובים אוטומטיים ושמירה מקומית.
+Professional tool for mortgage planning with automatic calculations and local storage.
+
 ## דרישות מוקדמות / Prerequisites
 
 ### 1. התקנת Node.js ו-npm
@@ -130,8 +136,16 @@ server {
     charset utf-8;
     
     # הגדרות עבור SPA (Single Page Application)
+    # חשוב: זה מבטיח שכל הנתיבים יחזרו ל-index.html
     location / {
         try_files $uri $uri/ /index.html;
+    }
+    
+    # מניעת גישה לקבצי מקור
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
     }
     
     # הגדרות קבצים סטטיים
@@ -338,6 +352,21 @@ sudo tail -f /var/log/nginx/error.log
 
 - ודא ש-`charset utf-8;` מוגדר ב-Nginx
 - בדוק שהקבצים נבנו עם `npm run build`
+- ודא שהקובץ `index.html` מכיל `lang="he" dir="rtl"`
+
+### בעיה: LocalStorage לא עובד
+### Issue: LocalStorage Not Working
+
+- ודא שהדפדפן תומך ב-localStorage
+- בדוק שהאתר רץ על HTTPS או localhost (localStorage דורש זאת בחלק מהדפדפנים)
+- בדוק את Console של הדפדפן לשגיאות JavaScript
+
+### בעיה: חישובים לא נכונים
+### Issue: Incorrect Calculations
+
+- ודא שכל התלויות מותקנות: `npm install`
+- בדוק את Console של הדפדפן לשגיאות
+- ודא שהקבצים נבנו מחדש לאחר עדכונים: `npm run build`
 
 ---
 
@@ -376,6 +405,31 @@ pm2 restart mortgage  # אם משתמשים ב-PM2
 2. **תעודות SSL**: מומלץ מאוד להשתמש ב-HTTPS בייצור
 3. **ניטור**: הגדר ניטור על השרת (לדוגמה: UptimeRobot, Pingdom)
 4. **גרסאות Node.js**: ודא שאתה משתמש בגרסה תואמת (18+)
+5. **LocalStorage**: האפליקציה משתמשת ב-localStorage של הדפדפן לשמירת נתונים - אין צורך בבסיס נתונים
+6. **SPA (Single Page Application)**: האפליקציה היא SPA - ודא שההגדרה `try_files` ב-Nginx נכונה
+7. **RTL Support**: האפליקציה תומכת בעברית ו-RTL - ודא ש-`charset utf-8` מוגדר
+
+---
+
+## תכונות האפליקציה
+## Application Features
+
+### תכונות עיקריות:
+- הזנת מחיר הבית ותנאי המשכנתא
+- ניהול משכורות, חסכונות, הלוואות והוצאות
+- הגדרת מס רכישה (דירה ראשונה/שנייה)
+- חישובים אוטומטיים של משכנתא מומלצת
+- סיכום כולל עם השוואות תשלומים
+- חישוב משכורת נוספת נדרשת
+- שמירה אוטומטית ב-localStorage
+- פונקציית הדפסה מותאמת
+- כפתור איפוס נתונים
+
+### טכנולוגיות:
+- React 18 + TypeScript
+- Tailwind CSS
+- Vite
+- LocalStorage API
 
 ---
 
@@ -385,4 +439,19 @@ pm2 restart mortgage  # אם משתמשים ב-PM2
 לשאלות או בעיות, בדוק את הלוגים וקבצי ההגדרה.
 
 For questions or issues, check the logs and configuration files.
+
+### בדיקת תקינות התקנה:
+```bash
+# בדוק שהקבצים נבנו בהצלחה
+ls -la /var/www/mortgage/dist/
+
+# בדוק שהקובץ index.html קיים
+cat /var/www/mortgage/dist/index.html | head -20
+
+# בדוק את גרסת Node.js
+node --version
+
+# בדוק את גרסת npm
+npm --version
+```
 
