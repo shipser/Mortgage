@@ -9,6 +9,62 @@ Professional tool for home buying finance planning with automatic calculations a
 
 ## דרישות מוקדמות / Prerequisites
 
+### אפשרות א': Docker (מומלץ - הכי פשוט)
+### Option A: Docker (Recommended - Simplest)
+
+האפליקציה כוללת הגדרת Docker מוכנה לפריסה. זה הדרך הכי פשוטה ומהירה לפרוס את האפליקציה.
+The application includes a ready-to-deploy Docker setup. This is the simplest and fastest way to deploy the application.
+
+#### דרישות:
+- Docker (גרסה 20.10 ומעלה)
+- Docker Compose (גרסה 2.0 ומעלה) - אופציונלי
+
+#### התקנה מהירה:
+```bash
+# בנה והפעל את הקונטיינר
+docker-compose up -d
+
+# האפליקציה תהיה זמינה ב: http://localhost:8080
+```
+
+#### פקודות נוספות:
+```bash
+# בנה את התמונה
+docker build -t mortgage-planning-tool .
+
+# הפעל את הקונטיינר
+docker run -d -p 8080:80 --name mortgage-app mortgage-planning-tool
+
+# צפה בלוגים
+docker logs -f mortgage-app
+
+# עצור את הקונטיינר
+docker stop mortgage-app
+
+# הפעל מחדש
+docker restart mortgage-app
+
+# מחק את הקונטיינר
+docker rm mortgage-app
+```
+
+#### עדכון:
+```bash
+# משוך שינויים חדשים
+git pull
+
+# בנה מחדש והפעל
+docker-compose up -d --build
+```
+
+ראה פרטים נוספים בסעיף "פריסה עם Docker" למטה.
+See more details in the "Docker Deployment" section below.
+
+---
+
+### אפשרות ב': התקנה מסורתית
+### Option B: Traditional Installation
+
 ### 1. התקנת Node.js ו-npm
 ### Install Node.js and npm
 
@@ -408,6 +464,221 @@ pm2 restart mortgage  # אם משתמשים ב-PM2
 5. **LocalStorage**: האפליקציה משתמשת ב-localStorage של הדפדפן לשמירת נתונים - אין צורך בבסיס נתונים
 6. **SPA (Single Page Application)**: האפליקציה היא SPA - ודא שההגדרה `try_files` ב-Nginx נכונה
 7. **RTL Support**: האפליקציה תומכת בעברית ו-RTL - ודא ש-`charset utf-8` מוגדר
+
+---
+
+## פריסה עם Docker
+## Docker Deployment
+
+### יתרונות:
+- **פשוט ומהיר**: אין צורך בהתקנת Node.js, npm או nginx על השרת
+- **עצמאי**: הכל כלול בקונטיינר אחד
+- **עקבי**: עובד זהה בכל סביבה
+- **קל לתחזוקה**: עדכון פשוט עם rebuild
+
+### שלב 1: התקנת Docker
+
+#### Linux (Ubuntu/Debian):
+```bash
+# עדכן את רשימת החבילות
+sudo apt-get update
+
+# התקן חבילות נדרשות
+sudo apt-get install -y ca-certificates curl gnupg lsb-release
+
+# הוסף את מפתח GPG של Docker
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+# הוסף את המאגר
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# התקן Docker
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+
+# הפעל את Docker
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# בדוק התקנה
+docker --version
+docker compose version
+```
+
+#### Windows:
+הורד והתקן Docker Desktop מ: https://www.docker.com/products/docker-desktop
+
+#### macOS:
+הורד והתקן Docker Desktop מ: https://www.docker.com/products/docker-desktop
+
+### שלב 2: בניית והפעלת הקונטיינר
+
+#### שימוש ב-Docker Compose (מומלץ):
+```bash
+# נווט לתיקיית הפרויקט
+cd /path/to/mortgage
+
+# בנה והפעל את הקונטיינר
+docker-compose up -d
+
+# האפליקציה תהיה זמינה ב: http://localhost:8080
+```
+
+#### שימוש ב-Docker בלבד:
+```bash
+# בנה את התמונה
+docker build -t mortgage-planning-tool .
+
+# הפעל את הקונטיינר
+docker run -d \
+  --name mortgage-app \
+  -p 8080:80 \
+  --restart unless-stopped \
+  mortgage-planning-tool
+
+# האפליקציה תהיה זמינה ב: http://localhost:8080
+```
+
+### שלב 3: הגדרת פורט מותאם אישית
+
+אם תרצה להשתמש בפורט אחר (לדוגמה 3000):
+```bash
+# עם Docker Compose - ערוך את docker-compose.yml:
+# ports:
+#   - "3000:80"
+
+# עם Docker:
+docker run -d --name mortgage-app -p 3000:80 mortgage-planning-tool
+```
+
+### שלב 4: הגדרת HTTPS עם Reverse Proxy
+
+#### עם Nginx כפוך Proxy:
+```nginx
+server {
+    listen 443 ssl http2;
+    server_name your-domain.com;
+
+    ssl_certificate /path/to/cert.pem;
+    ssl_certificate_key /path/to/key.pem;
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+#### עם Traefik:
+הוסף labels ל-`docker-compose.yml`:
+```yaml
+labels:
+  - "traefik.enable=true"
+  - "traefik.http.routers.mortgage.rule=Host(`your-domain.com`)"
+  - "traefik.http.routers.mortgage.entrypoints=websecure"
+  - "traefik.http.routers.mortgage.tls.certresolver=letsencrypt"
+```
+
+### שלב 5: ניהול הקונטיינר
+
+```bash
+# צפה בסטטוס
+docker ps | grep mortgage
+
+# צפה בלוגים
+docker logs -f mortgage-app
+
+# בדוק את הבריאות
+docker inspect --format='{{.State.Health.Status}}' mortgage-app
+
+# עצור את הקונטיינר
+docker stop mortgage-app
+
+# הפעל מחדש
+docker restart mortgage-app
+
+# מחק את הקונטיינר (לא את התמונה)
+docker rm mortgage-app
+
+# מחק את התמונה
+docker rmi mortgage-planning-tool
+```
+
+### שלב 6: עדכון האפליקציה
+
+```bash
+# משוך שינויים חדשים
+git pull
+
+# עם Docker Compose:
+docker-compose up -d --build
+
+# עם Docker:
+docker stop mortgage-app
+docker rm mortgage-app
+docker build -t mortgage-planning-tool .
+docker run -d --name mortgage-app -p 8080:80 --restart unless-stopped mortgage-planning-tool
+```
+
+### שלב 7: אופטימיזציה לייצור
+
+#### הגדרת משאבים:
+```yaml
+# ב-docker-compose.yml:
+services:
+  mortgage-app:
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+```
+
+#### שימוש ב-Multi-stage build:
+הקובץ `Dockerfile` כבר משתמש ב-multi-stage build לאופטימיזציה מקסימלית.
+
+### פתרון בעיות Docker:
+
+#### בעיה: הקונטיינר לא מתחיל
+```bash
+# בדוק את הלוגים
+docker logs mortgage-app
+
+# בדוק אם הפורט תפוס
+netstat -tulpn | grep 8080
+```
+
+#### בעיה: שגיאת build
+```bash
+# נקה cache ובנה מחדש
+docker build --no-cache -t mortgage-planning-tool .
+```
+
+#### בעיה: הקונטיינר קורס
+```bash
+# בדוק את הלוגים
+docker logs --tail 50 mortgage-app
+
+# בדוק את הבריאות
+docker inspect mortgage-app | grep -A 10 Health
+```
+
+### הערות חשובות ל-Docker:
+
+1. **גודל התמונה**: התמונה הסופית קטנה (~50MB) בזכות multi-stage build
+2. **אבטחה**: הקונטיינר רץ כ-non-root user (nginx)
+3. **בריאות**: הקונטיינר כולל health check אוטומטי
+4. **Restart Policy**: מוגדר ל-`unless-stopped` - הקונטיינר יתחיל אוטומטית
+5. **לוגים**: הלוגים נשמרים ב-Docker וניתן לצפות בהם עם `docker logs`
 
 ---
 

@@ -74,6 +74,37 @@ npm run build
 npm run preview
 ```
 
+## פריסה עם Docker
+
+האפליקציה כוללת הגדרת Docker מוכנה לפריסה מהירה וקלה.
+
+### הפעלה מהירה:
+
+```bash
+# בנה והפעל את הקונטיינר
+docker-compose up -d
+
+# האפליקציה תהיה זמינה ב: http://localhost:8080
+```
+
+### פקודות נוספות:
+
+```bash
+# בנה את התמונה
+docker build -t mortgage-planning-tool .
+
+# הפעל את הקונטיינר
+docker run -d -p 8080:80 --name mortgage-app mortgage-planning-tool
+
+# צפה בלוגים
+docker logs -f mortgage-app
+
+# עצור את הקונטיינר
+docker stop mortgage-app
+```
+
+ראה הוראות מפורטות ב-[DEPLOYMENT.md](./DEPLOYMENT.md#פריסה-עם-docker)
+
 ## טכנולוגיות
 
 - **React 18** + **TypeScript** - מסגרת עבודה וטיפוסים
