@@ -28,9 +28,6 @@ export const hebrew = {
   additionalPaymentNeeded: 'תשלום נוסף נדרש',
   excessPaymentPower: 'עודף כוח תשלום',
   additionalSalaryNeeded: 'משכורת נוספת נדרשת',
-  exportToPDF: 'ייצא ל-PDF',
-  exportShort: 'גרסה קצרה',
-  exportFull: 'גרסה מלאה',
   
   // Salaries
   salaries: 'משכורות',
@@ -95,7 +92,7 @@ export const hebrew = {
   homeType: 'סוג דירה',
   taxLevels: 'מדרגות מס',
   maxTaxableAmount: 'סכום מקסימלי למיסוי',
-  taxPercentage: 'אחוז מס',
+  buyingTaxPercentage: 'אחוז מס',
   addTaxLevel: 'הוסף רמת מס',
   removeTaxLevel: 'הסר',
   level: 'מדרגה',

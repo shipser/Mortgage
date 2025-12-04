@@ -71,7 +71,6 @@ npm run preview
 - **Tailwind CSS** - עיצוב מודרני ורספונסיבי
 - **Vite** - כלי בנייה מהיר
 - **LocalStorage API** - שמירה מקומית של נתונים
-- **html2pdf.js** - ייצוא PDF (לא בשימוש נוכחי)
 
 ## מבנה הפרויקט
 
@@ -97,8 +96,7 @@ mortgage/
 │   ├── types/
 │   │   └── mortgage.ts      # הגדרות TypeScript
 │   ├── utils/
-│   │   ├── storage.ts
-│   │   └── pdfExport.ts     # ייצוא PDF (לא בשימוש)
+│   │   └── storage.ts
 │   ├── styles/
 │   │   └── index.css        # עיצוב גלובלי
 │   ├── App.tsx              # רכיב ראשי
@@ -119,6 +117,5 @@ mortgage/
 ## פיתוח עתידי
 
 - שילוב אלגוריתמי חישוב מתקדמים
-- ייצוא PDF משופר
 - גרפים וויזואליזציה של נתונים
 - שמירה וטעינה של קבצי תצורה

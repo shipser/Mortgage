@@ -220,7 +220,7 @@ export function TaxLevelsInput({ config, onChange, homePrice }: TaxLevelsInputPr
               />
             </div>
             <div>
-              <label className="label">{hebrew.taxPercentage} (%)</label>
+              <label className="label">{hebrew.buyingTaxPercentage} (%)</label>
               <input
                 type="number"
                 className="input-field"
