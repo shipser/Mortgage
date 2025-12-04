@@ -2,10 +2,10 @@
 # Production Deployment Instructions
 
 ## כלי תכנון מימוני לקניית בית
-## Mortgage Planning Tool
+## Home Buying Finance Planning Tool
 
 כלי מקצועי לתכנון מימוני לקניית בית עם חישובים אוטומטיים ושמירה מקומית.
-Professional tool for mortgage planning with automatic calculations and local storage.
+Professional tool for home buying finance planning with automatic calculations and local storage.
 
 ## דרישות מוקדמות / Prerequisites
 
