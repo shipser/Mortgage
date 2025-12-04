@@ -252,7 +252,10 @@ export function SummarySection({
   const totalBuyingPower = recommendedMortgage + totalAvailableFunds;
   const hasEnoughBuyingPower = totalBuyingPower >= homePrice;
   const missingBuyingPower = homePrice - totalBuyingPower;
-  const additionalMonthlyPaymentNeeded = missingBuyingPower > 0 ? calculateMonthlyPayment(missingBuyingPower) : 0;
+  const _additionalMonthlyPaymentNeeded = missingBuyingPower > 0 ? calculateMonthlyPayment(missingBuyingPower) : 0;
+  
+  // Consume unused variable to avoid TypeScript error
+  void _additionalMonthlyPaymentNeeded;
 
   return (
     <div className="card">

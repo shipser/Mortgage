@@ -140,7 +140,7 @@ function App() {
   };
 
   // Calculate summary values (kept for potential future use)
-  const summaryValues = useMemo(() => {
+  const _summaryValues = useMemo(() => {
     // Calculate recommended mortgage (same logic as in components)
     const calculateAverage = (salaries: { amount: number }[]) => {
       const validSalaries = salaries.filter(s => s && s.amount > 0);
@@ -308,7 +308,9 @@ function App() {
       additionalSalaryNeeded,
     };
   }, [mortgageData]);
-
+  
+  // Consume unused variable to avoid TypeScript error
+  void _summaryValues;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
