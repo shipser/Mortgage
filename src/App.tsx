@@ -29,8 +29,8 @@ const initialData: MortgageData = {
 };
 
 function App() {
-  // Initialize dark mode hook to ensure theme is applied
-  useDarkMode();
+  // Initialize dark mode hook - single source of truth
+  const { toggleDarkMode, isDarkMode } = useDarkMode();
   
   const [mortgageData, setMortgageData] = useLocalStorage<MortgageData>(
     'mortgage-planning-data',
@@ -312,7 +312,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <Header onClear={handleClear} />
+        <Header onClear={handleClear} onToggleDarkMode={toggleDarkMode} isDarkMode={isDarkMode} />
       <div className="container mx-auto px-4 pb-8">
         <HomePriceInput
           value={mortgageData.homePrice}

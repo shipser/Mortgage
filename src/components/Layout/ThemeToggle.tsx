@@ -1,12 +1,13 @@
-import { useDarkMode } from '../../hooks/useDarkMode';
+interface ThemeToggleProps {
+  onToggle: () => void;
+  isDarkMode: boolean;
+}
 
-export function ThemeToggle() {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
-
+export function ThemeToggle({ onToggle, isDarkMode }: ThemeToggleProps) {
   return (
     <button
-      onClick={toggleDarkMode}
-      className="relative p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+      onClick={onToggle}
+      className="relative p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
       aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
       title={isDarkMode ? 'עבור למצב בהיר' : 'עבור למצב כהה'}
     >
