@@ -142,14 +142,14 @@ export function ExpensesList({ expenses, onChange, homePrice }: ExpensesListProp
       {/* Lawyer and Broker Expenses */}
       <div className="mb-6 space-y-4">
         {/* Lawyer */}
-        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-lg font-semibold">{hebrew.lawyer}</h3>
             <div className="flex items-center gap-2">
               <label className="text-sm font-medium">{hebrew.percentage}:</label>
               <input
                 type="number"
-                className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
+                className="w-24 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded text-sm"
                 value={lawyerPercentage}
                 onChange={(e) => setLawyerPercentage(Number(e.target.value) || 0)}
                 min="0"
@@ -160,7 +160,7 @@ export function ExpensesList({ expenses, onChange, homePrice }: ExpensesListProp
             </div>
           </div>
           {homePrice > 0 && (
-            <div className="text-sm space-y-1 text-gray-600">
+            <div className="text-sm space-y-1 text-gray-600 dark:text-gray-400">
               <div>{hebrew.baseAmount}: {lawyerExpense.base.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</div>
               <div>{hebrew.tax} ({taxRate}%): {lawyerExpense.tax.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</div>
               <div className="font-semibold text-blue-600">{hebrew.totalWithTax}: {lawyerExpense.total.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</div>
@@ -169,14 +169,14 @@ export function ExpensesList({ expenses, onChange, homePrice }: ExpensesListProp
         </div>
 
         {/* Broker */}
-        <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
+        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-lg font-semibold">{hebrew.broker}</h3>
             <div className="flex items-center gap-2">
               <label className="text-sm font-medium">{hebrew.percentage}:</label>
               <input
                 type="number"
-                className="w-24 px-2 py-1 border border-gray-300 rounded text-sm"
+                className="w-24 px-2 py-1 border border-gray-300 dark:border-gray-600 rounded text-sm"
                 value={brokerPercentage}
                 onChange={(e) => setBrokerPercentage(Number(e.target.value) || 0)}
                 min="0"
@@ -187,7 +187,7 @@ export function ExpensesList({ expenses, onChange, homePrice }: ExpensesListProp
             </div>
           </div>
           {homePrice > 0 && (
-            <div className="text-sm space-y-1 text-gray-600">
+            <div className="text-sm space-y-1 text-gray-600 dark:text-gray-400">
               <div>{hebrew.baseAmount}: {brokerExpense.base.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</div>
               <div>{hebrew.tax} ({taxRate}%): {brokerExpense.tax.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</div>
               <div className="font-semibold text-blue-600">{hebrew.totalWithTax}: {brokerExpense.total.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪</div>
@@ -197,7 +197,7 @@ export function ExpensesList({ expenses, onChange, homePrice }: ExpensesListProp
       </div>
 
       {editingIndex !== null && editForm && (
-        <div className="bg-gray-50 p-4 rounded-lg mb-4 border-2 border-blue-200">
+        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4 border-2 border-blue-200 dark:border-blue-700">
           <h3 className="font-semibold mb-3">
             {editingIndex >= expenses.length ? hebrew.addExpense : hebrew.edit}
           </h3>
@@ -240,11 +240,11 @@ export function ExpensesList({ expenses, onChange, homePrice }: ExpensesListProp
         {expenses.map((expense, index) => (
           <div
             key={index}
-            className="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center"
+            className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 flex justify-between items-center"
           >
             <div className="flex-1">
               <div className="font-semibold">{expense.name || `הוצאה ${index + 1}`}</div>
-              <div className="text-sm text-gray-600 mt-1">
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 {hebrew.expenseAmount}: {expense.amount.toLocaleString('he-IL')} ₪
               </div>
             </div>
@@ -259,15 +259,15 @@ export function ExpensesList({ expenses, onChange, homePrice }: ExpensesListProp
           </div>
         ))}
         {expenses.length === 0 && (
-          <p className="text-gray-500 text-center py-4">אין הוצאות. לחץ על "הוסף הוצאה" כדי להתחיל.</p>
+          <p className="text-gray-500 dark:text-gray-400 text-center py-4">אין הוצאות. לחץ על "הוסף הוצאה" כדי להתחיל.</p>
         )}
       </div>
 
       {expenses.length > 0 && (
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
+        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border-2 border-blue-300 dark:border-blue-600">
           <div className="flex justify-between items-center">
-            <span className="text-lg font-bold text-blue-900">{hebrew.totalExpenses}:</span>
-            <span className="text-xl font-bold text-blue-900">
+            <span className="text-lg font-bold text-blue-900 dark:text-blue-200">{hebrew.totalExpenses}:</span>
+            <span className="text-xl font-bold text-blue-900 dark:text-blue-200">
               {totalExpenses.toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
             </span>
           </div>

@@ -1,10 +1,10 @@
 # הוראות התקנה והפעלה בשרת ייצור
 # Production Deployment Instructions
 
-## כלי לתכנון מימון קניית בית
+## כלי תכנון מימוני לקניית בית
 ## Mortgage Planning Tool
 
-כלי מקצועי לתכנון מימון קניית בית עם חישובים אוטומטיים ושמירה מקומית.
+כלי מקצועי לתכנון מימוני לקניית בית עם חישובים אוטומטיים ושמירה מקומית.
 Professional tool for mortgage planning with automatic calculations and local storage.
 
 ## דרישות מוקדמות / Prerequisites

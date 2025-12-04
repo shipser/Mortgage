@@ -193,7 +193,7 @@ export function TaxLevelsInput({ config, onChange, homePrice }: TaxLevelsInputPr
       </div>
 
       {editingIndex !== null && editForm && (
-        <div className="bg-gray-50 p-4 rounded-lg mb-4 border-2 border-blue-200">
+        <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4 border-2 border-blue-200 dark:border-blue-700">
           <h3 className="font-semibold mb-3">
             {editingIndex >= config.taxLevels.length
               ? hebrew.addTaxLevel
@@ -252,13 +252,13 @@ export function TaxLevelsInput({ config, onChange, homePrice }: TaxLevelsInputPr
         {config.taxLevels.map((level, index) => (
           <div
             key={index}
-            className="bg-gray-50 p-4 rounded-lg border border-gray-200 flex justify-between items-center"
+            className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 flex justify-between items-center"
           >
             <div className="flex-1">
               <div className="font-semibold">
                 {hebrew.level} {index + 1}
               </div>
-              <div className="text-sm text-gray-600 mt-1">
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 {index === 0 ? (
                   <>
                     0 - {level.maxTaxableAmount >= 999999999 ? 'ומעלה' : level.maxTaxableAmount.toLocaleString('he-IL') + ' ₪'}: {level.taxPercentage}%
@@ -270,7 +270,7 @@ export function TaxLevelsInput({ config, onChange, homePrice }: TaxLevelsInputPr
                   </>
                 )}
                 {index === config.taxLevels.length - 1 && level.maxTaxableAmount < 999999999 && (
-                  <span className="text-gray-500"> (ומעלה)</span>
+                  <span className="text-gray-500 dark:text-gray-400"> (ומעלה)</span>
                 )}
               </div>
               {homePrice > 0 && (
@@ -290,17 +290,17 @@ export function TaxLevelsInput({ config, onChange, homePrice }: TaxLevelsInputPr
           </div>
         ))}
         {config.taxLevels.length === 0 && (
-          <p className="text-gray-500 text-center py-4">
+          <p className="text-gray-500 dark:text-gray-400 text-center py-4">
             אין רמות מס. לחץ על "הוסף רמת מס" כדי להתחיל.
           </p>
         )}
       </div>
 
       {homePrice > 0 && config.taxLevels.length > 0 && (
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg border-2 border-blue-300">
+        <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border-2 border-blue-300 dark:border-blue-600">
           <div className="flex justify-between items-center">
-            <span className="text-lg font-bold text-blue-900">{hebrew.totalTax}:</span>
-            <span className="text-xl font-bold text-blue-900">
+            <span className="text-lg font-bold text-blue-900 dark:text-blue-200">{hebrew.totalTax}:</span>
+            <span className="text-xl font-bold text-blue-900 dark:text-blue-200">
               {calculateTotalTax().toLocaleString('he-IL', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ₪
             </span>
           </div>
