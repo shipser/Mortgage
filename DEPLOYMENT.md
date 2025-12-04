@@ -7,6 +7,28 @@
 כלי מקצועי לתכנון מימוני לקניית בית עם חישובים אוטומטיים ושמירה מקומית.
 Professional tool for home buying finance planning with automatic calculations and local storage.
 
+## התקנה מהירה / Quick Start
+
+### עם Docker (הכי פשוט):
+```bash
+# 1. ודא ש-Docker Desktop פועל (Windows/macOS) או Docker daemon (Linux)
+docker ps
+
+# 2. בנה והפעל
+docker compose up -d
+
+# 3. פתח בדפדפן: http://localhost:8080
+```
+
+### ללא Docker:
+```bash
+npm install
+npm run build
+# עקוב אחר ההוראות למטה להגדרת שרת
+```
+
+---
+
 ## דרישות מוקדמות / Prerequisites
 
 ### אפשרות א': Docker (מומלץ - הכי פשוט)
@@ -17,15 +39,29 @@ The application includes a ready-to-deploy Docker setup. This is the simplest an
 
 #### דרישות:
 - Docker (גרסה 20.10 ומעלה)
-- Docker Compose (גרסה 2.0 ומעלה) - אופציונלי
+- Docker Compose (גרסה 2.0 ומעלה) - אופציונלי אבל מומלץ
+
+#### בדיקת התקנה:
+```bash
+# בדוק גרסת Docker
+docker --version
+
+# בדוק גרסת Docker Compose
+docker compose version
+
+# בדוק ש-Docker פועל (לא אמור להחזיר שגיאה)
+docker ps
+```
 
 #### התקנה מהירה:
 ```bash
 # בנה והפעל את הקונטיינר
-docker-compose up -d
+docker compose up -d
 
 # האפליקציה תהיה זמינה ב: http://localhost:8080
 ```
+
+**⚠️ חשוב**: ב-Windows/macOS, ודא ש-Docker Desktop פועל לפני הרצת פקודות Docker!
 
 #### פקודות נוספות:
 ```bash
@@ -509,12 +545,37 @@ docker compose version
 ```
 
 #### Windows:
-הורד והתקן Docker Desktop מ: https://www.docker.com/products/docker-desktop
+1. הורד והתקן Docker Desktop מ: https://www.docker.com/products/docker-desktop
+2. **חשוב**: ודא ש-Docker Desktop פועל לפני הרצת פקודות Docker
+   - לחץ על `Windows Key` וחפש "Docker Desktop"
+   - הפעל את Docker Desktop וחכה עד שהוא מוכן (אייקון הלוויתן יופיע במגש המערכת)
+   - בדוק שההתקנה עובדת: `docker ps` (לא אמור להחזיר שגיאה)
 
 #### macOS:
-הורד והתקן Docker Desktop מ: https://www.docker.com/products/docker-desktop
+1. הורד והתקן Docker Desktop מ: https://www.docker.com/products/docker-desktop
+2. ודא ש-Docker Desktop פועל לפני הרצת פקודות Docker
 
-### שלב 2: בניית והפעלת הקונטיינר
+### שלב 2: בדיקת דרישות מוקדמות
+
+לפני בניית הקונטיינר, ודא:
+
+```bash
+# 1. Docker פועל
+docker ps
+
+# 2. קובץ package-lock.json קיים (נדרש ל-npm ci)
+ls package-lock.json
+
+# 3. כל קבצי המקור קיימים
+ls Dockerfile docker-compose.yml nginx.conf
+```
+
+**הערה חשובה**: קובץ `package-lock.json` חייב להיות קיים בפרויקט. אם הוא חסר:
+```bash
+npm install  # יוצר את package-lock.json
+```
+
+### שלב 3: בניית והפעלת הקונטיינר
 
 #### שימוש ב-Docker Compose (מומלץ):
 ```bash
@@ -522,6 +583,9 @@ docker compose version
 cd /path/to/mortgage
 
 # בנה והפעל את הקונטיינר
+docker compose up -d
+
+# או עם docker-compose (גרסה ישנה יותר)
 docker-compose up -d
 
 # האפליקציה תהיה זמינה ב: http://localhost:8080
@@ -542,7 +606,25 @@ docker run -d \
 # האפליקציה תהיה זמינה ב: http://localhost:8080
 ```
 
-### שלב 3: הגדרת פורט מותאם אישית
+**הערה**: תהליך הבנייה יכול לקחת מספר דקות בפעם הראשונה (הורדת תמונות בסיס והתקנת תלויות).
+
+#### בדיקת תקינות הבנייה:
+```bash
+# בדוק שהתמונה נבנתה בהצלחה
+docker images | grep mortgage-planning-tool
+
+# בדוק שהקונטיינר פועל
+docker ps | grep mortgage
+
+# בדוק את ה-health check
+curl http://localhost:8080/health
+# אמור להחזיר: healthy
+
+# פתח בדפדפן
+# http://localhost:8080
+```
+
+### שלב 4: הגדרת פורט מותאם אישית
 
 אם תרצה להשתמש בפורט אחר (לדוגמה 3000):
 ```bash
@@ -554,7 +636,7 @@ docker run -d \
 docker run -d --name mortgage-app -p 3000:80 mortgage-planning-tool
 ```
 
-### שלב 4: הגדרת HTTPS עם Reverse Proxy
+### שלב 5: הגדרת HTTPS עם Reverse Proxy
 
 #### עם Nginx כפוך Proxy:
 ```nginx
@@ -585,7 +667,7 @@ labels:
   - "traefik.http.routers.mortgage.tls.certresolver=letsencrypt"
 ```
 
-### שלב 5: ניהול הקונטיינר
+### שלב 6: ניהול הקונטיינר
 
 ```bash
 # צפה בסטטוס
@@ -610,7 +692,7 @@ docker rm mortgage-app
 docker rmi mortgage-planning-tool
 ```
 
-### שלב 6: עדכון האפליקציה
+### שלב 7: עדכון האפליקציה
 
 ```bash
 # משוך שינויים חדשים
@@ -626,7 +708,7 @@ docker build -t mortgage-planning-tool .
 docker run -d --name mortgage-app -p 8080:80 --restart unless-stopped mortgage-planning-tool
 ```
 
-### שלב 7: אופטימיזציה לייצור
+### שלב 8: אופטימיזציה לייצור
 
 #### הגדרת משאבים:
 ```yaml
@@ -648,19 +730,80 @@ services:
 
 ### פתרון בעיות Docker:
 
+#### בעיה: Docker Desktop לא פועל (Windows/macOS)
+**תסמינים:**
+```
+ERROR: error during connect: Head "http://%2F%2F.%2Fpipe%2FdockerDesktopLinuxEngine/_ping": 
+open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.
+```
+
+**פתרון:**
+1. הפעל את Docker Desktop מהתפריט התחל (Windows) או Applications (macOS)
+2. חכה עד ש-Docker Desktop מוכן (אייקון הלוויתן במגש המערכת)
+3. בדוק שההתקנה עובדת: `docker ps`
+4. אם הבעיה נמשכת, הפעל מחדש את המחשב
+
+ראה [DOCKER_TROUBLESHOOTING.md](./DOCKER_TROUBLESHOOTING.md) לפרטים נוספים.
+
+#### בעיה: שגיאת build - "package-lock.json not found"
+**תסמינים:**
+```
+npm error The `npm ci` command can only install with an existing package-lock.json
+```
+
+**פתרון:**
+```bash
+# ודא שקובץ package-lock.json קיים
+ls package-lock.json
+
+# אם חסר, צור אותו:
+npm install
+
+# בנה מחדש
+docker build -t mortgage-planning-tool .
+```
+
+**הערה**: קובץ `.dockerignore` לא צריך לכלול את `package-lock.json` (כבר מתוקן בגרסה הנוכחית).
+
+#### בעיה: שגיאת build - TypeScript errors
+**תסמינים:**
+```
+error TS6133: 'variable' is declared but its value is never read.
+```
+
+**פתרון:**
+```bash
+# בדוק שגיאות TypeScript מקומית לפני build:
+npm run build
+
+# אם יש שגיאות, תקן אותן ואז בנה את Docker:
+docker build -t mortgage-planning-tool .
+```
+
 #### בעיה: הקונטיינר לא מתחיל
 ```bash
 # בדוק את הלוגים
 docker logs mortgage-app
 
 # בדוק אם הפורט תפוס
+# Windows PowerShell:
+netstat -ano | findstr :8080
+
+# Linux/macOS:
 netstat -tulpn | grep 8080
+# או
+lsof -i :8080
+
+# אם הפורט תפוס, שנה את הפורט ב-docker-compose.yml או בפקודת docker run
 ```
 
-#### בעיה: שגיאת build
+#### בעיה: שגיאת build כללית
 ```bash
 # נקה cache ובנה מחדש
 docker build --no-cache -t mortgage-planning-tool .
+
+# או נקה את כל ה-cache של Docker (זהיר - ימחק כל ה-cache):
+docker builder prune -a
 ```
 
 #### בעיה: הקונטיינר קורס
@@ -670,6 +813,24 @@ docker logs --tail 50 mortgage-app
 
 # בדוק את הבריאות
 docker inspect mortgage-app | grep -A 10 Health
+
+# בדוק את הסטטוס
+docker ps -a | grep mortgage
+```
+
+#### בעיה: האפליקציה לא נגישה בדפדפן
+```bash
+# 1. ודא שהקונטיינר פועל
+docker ps
+
+# 2. בדוק את הלוגים
+docker logs mortgage-app
+
+# 3. בדוק את ה-health check
+curl http://localhost:8080/health
+
+# 4. בדוק שהפורט נכון
+docker port mortgage-app
 ```
 
 ### הערות חשובות ל-Docker:
@@ -679,6 +840,14 @@ docker inspect mortgage-app | grep -A 10 Health
 3. **בריאות**: הקונטיינר כולל health check אוטומטי
 4. **Restart Policy**: מוגדר ל-`unless-stopped` - הקונטיינר יתחיל אוטומטית
 5. **לוגים**: הלוגים נשמרים ב-Docker וניתן לצפות בהם עם `docker logs`
+6. **package-lock.json**: חייב להיות קיים בפרויקט (לא מוכלל ב-.dockerignore)
+7. **TypeScript**: כל שגיאות TypeScript חייבות להיות מתוקנות לפני build מוצלח
+8. **Docker Desktop**: ב-Windows/macOS, Docker Desktop חייב להיות פועל לפני הרצת פקודות Docker
+
+### משאבי עזר נוספים:
+
+- **מדריך פתרון בעיות מפורט**: [DOCKER_TROUBLESHOOTING.md](./DOCKER_TROUBLESHOOTING.md)
+- **פקודות מהירות**: [DOCKER.md](./DOCKER.md)
 
 ---
 
